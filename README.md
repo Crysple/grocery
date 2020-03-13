@@ -1,4 +1,4 @@
-# Warehouse storing miscellaneous code
+# Miscellaneous code
 
 * Currently there are three categories, each folder may have a descriptive README if needed
   * cpp: cplusplus code
