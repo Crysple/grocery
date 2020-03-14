@@ -1,4 +1,4 @@
-# Miscellaneous code
+# A place to store miscellaneous code
 
 * Currently there are three categories, each folder may have a descriptive README if needed
   * cpp: cplusplus code
