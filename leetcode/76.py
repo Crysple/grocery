@@ -1,63 +1,36 @@
 from collections import Counter
 class Window:
-    def __init__(self, string, neededChars):
-        self.string = string
-        self.neededChars = neededChars
-        self.head = self.tail = self.nSatisfiedChar = 0
+    def __init__(self, target_string):
+        self.need = Counter(target_string)
+        self.n_need = len(self.need)
 
-    def isLegal(self):
-        return self.nSatisfiedChar == len(self.neededChars)
-    
-    def reachEnd(self):
-        return self.head == len(self.string)
+    def remove(self, x):
+        self.need[x] += 1
+        if self.need[x] == 1:
+            self.n_need += 1
 
-    def getLength(self):
-        return self.head - self.tail + 1
+    def add(self, x):
+        self.need[x] -= 1
+        if self.need[x] == 0:
+            self.n_need -= 1
 
-    def moveHead(self):
-        '''move head forward one step'''
-        char = self.string[self.head]
-        if char in self.neededChars:
-            self.neededChars[char] -= 1
-            if self.neededChars[char] == 0:
-                self.nSatisfiedChar += 1
-        self.head += 1
+    def satisfied(self):
+        return self.n_need == 0
 
-    def moveTail(self):
-        '''move tail forward'''
-        char = self.string[self.tail]
-        if char in self.neededChars:
-            if self.neededChars[char] == 0:
-                self.nSatisfiedChar -= 1
-            self.neededChars[char] += 1
-        self.tail += 1
-
-    def shrinkToIllegal(self):
-        while self.isLegal():
-            self.moveTail()
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        window = Window(s, Counter(t))
+        window = Window(t)
 
-        tailOfMinWindow = -1
-        minLengthOfWindow = len(s) + 1
-
-        def updateMinWindow(window, minLengthOfWindow, tailOfMinWindow):
-            curLength = window.getLength()
-            if curLength < minLengthOfWindow:
-                minLengthOfWindow = curLength
-                tailOfMinWindow = window.tail - 1
-            return minLengthOfWindow, tailOfMinWindow
-
-        while True:
-            window.moveHead()
-            if window.isLegal():
-                window.shrinkToIllegal()
-                minLengthOfWindow, tailOfMinWindow = updateMinWindow(window, minLengthOfWindow, tailOfMinWindow)
-            if window.reachEnd():
-                break
-            
-        if tailOfMinWindow != -1:
-            return s[tailOfMinWindow:tailOfMinWindow+minLengthOfWindow]
-        return ""
+        start = end = 0
+        minlen = len(s) + 1
+        minstr = ""
+        for end in range(len(s)):
+            window.add(s[end])
+            while window.satisfied():
+                if minlen > end - start + 1:
+                    minlen = end - start + 1
+                    minstr = s[start:end+1]
+                window.remove(s[start])
+                start += 1
+        return minstr
