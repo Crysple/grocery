@@ -8,9 +8,9 @@ In this combinatorial search problem, the aim is to get from any initial board s
 
 # Algorithms
 
-- bfs (Breadth-First Search)
-- dfs (Depth-First Search)
-- ast (A-Star Search)
+- **bfs (Breadth-First Search)**
+- **dfs (Depth-First Search)**
+- **ast (A-Star Search)**
 
 For each algorithm, the outputs are the solution and some other statistics, including `path to goal`, `cost of path`, `nodes expanded`,  `search depth`, `max search depth`, `running time`, `max ram usage`.
 
