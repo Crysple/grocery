@@ -12,26 +12,17 @@ public:
             // cout<<endl<<*median<<endl;
             if (i == int(nums.size())) break;
             
+            window.insert(nums[i]);
+            auto to_remove = window.lower_bound(nums[i-k]);
             if (nums[i] >= *median){
-                window.insert(nums[i]);
                 if (nums[i-k] <= *median){
                     ++median;
                 }
-                window.erase(window.lower_bound(nums[i-k]));
-            } else{
-                window.insert(nums[i]);
-                auto to_remove = window.lower_bound(nums[i-k]);
-                if (nums[i-k] > *median) --median;
-                else if (nums[i-k] == *median){ //3 4 2 --> 4 2 3  // 2 3 4 -> 2 3(m) 3 4
-                    // OmO (O!=m!=O) --> --median and remove to_remove
-                    // OmO (O!=m==O) [median == to_remove] --> --median and remove to_remove
-                    // OmO (O==m!=O) [median != to_remove] --> just remove to_remove
-                    if (median == to_remove){
-                        --median; //s2
-                    }
-                }
-                window.erase(to_remove);
             }
+            else if (nums[i-k] > *median || (nums[i-k] == *median && median == to_remove)){
+                    --median;
+            }
+            window.erase(to_remove);
         }
         return sliding_medians;
     }
