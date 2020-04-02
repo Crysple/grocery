@@ -160,14 +160,6 @@ void test_sorts(vector<int> int_arr, vector<string> str_arr, vector<const char*>
 }
 
 int main(int argc, const char * argv[]) {
-    bool a = false;
-    a+=1;
-    cout<<a<<endl;
-    a+=1;
-    cout<<a<<endl;
-    a-=1;
-    cout<<a<<endl;
-    return 0;
     vector<int> int_arr = generate_permutation(N);
     vector<string> str_arr = generate_random_strings(N, {8, 31});
     vector<const char*> cstr_arr = strings_to_cstrings(str_arr);
