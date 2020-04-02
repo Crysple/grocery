@@ -1,8 +1,5 @@
 # Sorting
 
-> - Name: Zejun Lin
-> - UNI: zl2844
-
 ## What does the code do
 
 - Measure the time needed to sort 1,000,000 random integers using sort and qsort(); once in increasing and once in decreasing order.
@@ -27,8 +24,6 @@
 - `sort` does better with`string` than `c-style string` when strings are short, but the situation is reversed when the strings become longer. While `qsort` is always good at dealing with `c-style string` than `string`, which is not surprising.
 
 ## Experience with writing the code
-
-I hope I may get some insights...
 
 ### Template
 
