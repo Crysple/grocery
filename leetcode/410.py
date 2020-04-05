@@ -1,5 +1,34 @@
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
+        # Binary Search solution after seeing the solution
+        l, r = max(nums), sum(nums) + 1
+        while l < r:
+            mid = l + (r - l) // 2
+            csum = cnt = 0
+            for n in nums:
+                csum += n
+                if csum > mid:
+                    csum = n
+                    cnt += 1
+            if cnt + 1 > m: # mid is still too small
+                l = mid + 1
+            else:
+                r = mid
+        return l
+        # DP solution after seeing the solution
+        dp = nums[:1]
+        for n in nums[1:]:
+            dp.append(n + dp[-1])
+        tdp = [float('inf')] * len(nums)
+        for cm in range(1, m):
+            for i in range(len(nums)):
+                n_sum = 0
+                for j in range(i, cm-1, -1):
+                    n_sum += nums[j]
+                    tdp[i] = min(tdp[i], max(n_sum, dp[j-1]))
+            dp = tdp
+            tdp = [float('inf')] * len(nums)
+        return dp[-1]
         # Bottom up with optimization (utilizing monotonicity) O(n^2) AC
         N = len(nums)
         dp = [[0] * N for _ in range(N)]
